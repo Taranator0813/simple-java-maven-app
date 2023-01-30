@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         gitcommit = "${gitcommit}"
-        DOCKERHUB_CREDENTIALS=credentials('dockerhub')
+        
     }
     tools {
         maven 'mavenjenkins'
@@ -38,7 +38,7 @@ pipeline {
         stage('Docker Build & Push') {
           steps {
             script {  
-              withDockerRegistry([ credentialsId: "DOCKERHUB_CREDENTIALS", url: "" ]) {
+              withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
                 def appmavenjenkins = docker.build("estefaniam/mavenjenkins:${gitcommit}", ".")
                 appmavenjenkins.push()
               }
