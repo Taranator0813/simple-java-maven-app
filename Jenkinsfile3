@@ -34,16 +34,11 @@ pipeline {
                 }
             }
         }
-        stage('Login') {
-
-			steps {
-				sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-			}
-		}
+        
         stage('Docker Build & Push') {
           steps {
             script {  
-              docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
+              withDockerRegistry([ credentialsId: "dockerhub", url: "" ]) {
                 def appmavenjenkins = docker.build("estefaniam/mavenjenkins:${gitcommit}", ".")
                 appmavenjenkins.push()
               }
