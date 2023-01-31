@@ -39,6 +39,7 @@ pipeline {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
+        }
         
         stage('Docker Build & Push') {
           steps {
