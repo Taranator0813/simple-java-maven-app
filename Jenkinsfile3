@@ -45,7 +45,7 @@ pipeline {
           steps {
            script {  
               docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                def appmavenjenkins = docker.build("macloujulian/mavenjenkins:${gitcommit}", ".")
+                def appmavenjenkins = docker.build("estefaniam/proyecto:${gitcommit}", ".")
                 appmavenjenkins.push()
               }
             }  
